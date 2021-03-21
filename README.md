@@ -81,10 +81,6 @@ The Makefile is self documenting so just run `make` and it will provide the list
 
 ## Cleaning up
 
-To clean the environment after review `make clean` will remove the minikube resources and any temporary files (virtual env, etc) from the local machine
+To clean the environment after review `make clean` will remove the minikube resources and any temporary files from the local machine
 
 ## TODO
-
-1. Optimise the docker image, could potentially use a more efficient image for production
-2. Add in more documentation about the deployed configuration code
-3. `make clean` tidy up to remove all python compiled files
