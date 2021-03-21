@@ -59,7 +59,7 @@ Software versions tested with
 ## Order of Execution
 
 1. `make apply-all` - Applies all the resources in a sensible order
-2. `make redploy` - Redeploys the resources and restarts the pods associated with `$(APPS)`
+2. `make redeploy` - Redeploys the resources and restarts the pods associated with `$(APPS)`
 3. `make clean` - cleans up temporary files and deletes all the resources
 
 ## Makefile Recipes
