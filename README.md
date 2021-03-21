@@ -84,3 +84,5 @@ The Makefile is self documenting so just run `make` and it will provide the list
 To clean the environment after review `make clean` will remove the minikube resources and any temporary files from the local machine
 
 ## TODO
+
+- Need to remove repetition in Makfile as new services come along this will get tedious to maintain. Too much repetition
