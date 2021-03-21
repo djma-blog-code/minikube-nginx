@@ -22,7 +22,7 @@ and this should give the 2nd page in the mapped volume
 
 `curl -v -s -I -H 'Host: helloworld' "http://$IP/index2.html`
 
-Additionally if you have acces, you can issue the command `sudo echo $(IP) helloworld >> /etc/hosts`, you can browse to the pages in your browser of choice.
+Additionally if you have access, you can issue the command `sudo echo $(IP) helloworld >> /etc/hosts`, you can browse to the pages in your browser of choice.
 
 ## Dependencies
 
