@@ -32,21 +32,21 @@ endef
 help:
 	@grep -E '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36mmake %-30s\033[0m %s\n", $$1, $$2}'
 
-apply-all: enable-ingress apply-configmaps apply-deployments apply-services apply-ingress
+apply-all: enable-ingress apply-configmaps apply-deployments apply-services apply-ingress ## Apply all resources to kubernetes
 
 apply-configmaps: $(K_CONFIGMAPS)/*.yaml ## apply the configmaps to kubernetes
 	@echo "Applying configmap in $^"
 	$(APPLYYML)
 
-apply-deployments: $(K_DEPLOYMENTS)/*.yaml ## apply the configmaps to kubernetes
+apply-deployments: $(K_DEPLOYMENTS)/*.yaml ## apply the deployments to kubernetes
 	@echo "Applying deployments in $^"
 	$(APPLYYML)
 
-apply-services: $(K_SERVICES)/*.yaml ## apply the configmaps to kubernetes
+apply-services: $(K_SERVICES)/*.yaml ## apply the services to kubernetes
 	@echo "Applying services in $^"
 	$(APPLYYML)
 
-apply-ingress: $(K_INGRESS)/*.yaml ## apply the configmaps to kubernetes
+apply-ingress: $(K_INGRESS)/*.yaml ## apply the ingress to kubernetes
 	@echo "Applying ingress in $^"
 	$(APPLYYML)
 
@@ -58,15 +58,15 @@ clean-ingress: $(K_INGRESS)/*.yaml ## clean ingress resources
 	@echo "Cleaning out Ingress in $^"
 	$(DELETE_RESOURCE)	
 
-clean-services: $(K_SERVICES)/*.yaml ## clean ingress resources
+clean-services: $(K_SERVICES)/*.yaml ## clean services resources
 	@echo "Cleaning out services in $^"
 	$(DELETE_RESOURCE)	
 
-clean-deployments: $(K_DEPLOYMENTS)/*.yaml ## clean ingress resources
+clean-deployments: $(K_DEPLOYMENTS)/*.yaml ## clean deployment resources
 	@echo "Cleaning out deployments in $^"
 	$(DELETE_RESOURCE)	
 
-clean-configmaps: $(K_CONFIGMAPS)/*.yaml ## clean ingress resources
+clean-configmaps: $(K_CONFIGMAPS)/*.yaml ## clean configmaps resources
 	@echo "Cleaning out configmaps in $^"
 	$(DELETE_RESOURCE)	
 
@@ -78,6 +78,6 @@ $(APPS): ## restart the apps
 	@echo "Restarting the app $@"
 	kubectl rollout restart deployment $@
 
-redeploy: apply-all $(APPS) ## Redeply the config and recycle the app
+redeploy: apply-all $(APPS) ## Redeploy the config and recycle the app
 
 .PHONY: help clean clean-configmaps clean-deployments clean-services clean-ingress apply-configmaps apply-deployments apply-services apply-ingress enable-ingress
