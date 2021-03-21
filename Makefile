@@ -3,17 +3,22 @@
 #
 .EXPORT_ALL_VARIABLES:
 
+.PHONY: yaml help clean clean-configmaps clean-deployments clean-services clean-ingress apply-configmaps apply-deployments apply-services apply-ingress enable-ingress
+
 #set default ENV based on your username and hostname
 TOUCH_FILES=enable-ingress
 TEMP_FOLDERS=
 
-#
-# kubernetes deployment files
 K_ROOT := ops/kubernetes
-K_CONFIGMAPS := $(K_ROOT)/configmaps
-K_DEPLOYMENTS := $(K_ROOT)/deployments
-K_SERVICES := $(K_ROOT)/services
-K_INGRESS := $(K_ROOT)/ingress
+YAML_FILES_SRC = $(shell find $(K_ROOT) -type f -name '*.ytemplate')
+YAML_FILES = $(YAML_FILES_SRC:%.ytemplate=%.yaml)
+
+# We do these separately so we can order them.
+K_CONFIGS := $(wildcard $(K_ROOT)/configmaps/*.yaml $(K_ROOT)/deployments/*.yaml $(K_ROOT)/services/*.yaml $(K_ROOT)/ingress/*.yaml)
+K_DEPLOYMENTS := $(wildcard $(K_ROOT)/deployments/*.yaml)
+K_SERVICES := $(wildcard $(K_ROOT)/services/*.yaml)
+K_INGRESS := $(wildcard $(K_ROOT)/ingress/*.yaml)
+K_NAMESPACE := nginx-test
 
 APPS = helloworld
 
@@ -54,25 +59,26 @@ enable-ingress: ## enable ingress addon in minikube
 	minikube addons enable ingress
 	touch $@
 
-clean-ingress: $(K_INGRESS)/*.yaml ## clean ingress resources
-	@echo "Cleaning out Ingress in $^"
-	$(DELETE_RESOURCE)	
+# clean-ingress: $(K_INGRESS)/*.yaml ## clean ingress resources
+# 	@echo "Cleaning out Ingress in $^"
+# 	$(DELETE_RESOURCE)	
 
-clean-services: $(K_SERVICES)/*.yaml ## clean services resources
-	@echo "Cleaning out services in $^"
-	$(DELETE_RESOURCE)	
+# clean-services: $(K_SERVICES)/*.yaml ## clean services resources
+# 	@echo "Cleaning out services in $^"
+# 	$(DELETE_RESOURCE)	
 
-clean-deployments: $(K_DEPLOYMENTS)/*.yaml ## clean deployment resources
-	@echo "Cleaning out deployments in $^"
-	$(DELETE_RESOURCE)	
+# clean-deployments: $(K_DEPLOYMENTS)/*.yaml ## clean deployment resources
+# 	@echo "Cleaning out deployments in $^"
+# 	$(DELETE_RESOURCE)	
 
-clean-configmaps: $(K_CONFIGMAPS)/*.yaml ## clean configmaps resources
-	@echo "Cleaning out configmaps in $^"
-	$(DELETE_RESOURCE)	
+# clean-configmaps: $(K_CONFIGMAPS)/*.yaml ## clean configmaps resources
+# 	@echo "Cleaning out configmaps in $^"
+# 	$(DELETE_RESOURCE)	
 
-clean: clean-ingress clean-services clean-deployments clean-configmaps ## clean everything up
+clean:  ## clean everything up
 	-rm $(TOUCH_FILES)
 	-rm -Rf $(TEMP_FOLDERS)
+	-rm $(YAML_FILES)
 
 $(APPS): ## restart the apps
 	@echo "Restarting the app $@"
@@ -80,4 +86,18 @@ $(APPS): ## restart the apps
 
 redeploy: apply-all $(APPS) ## Redeploy the config and recycle the app
 
-.PHONY: help clean clean-configmaps clean-deployments clean-services clean-ingress apply-configmaps apply-deployments apply-services apply-ingress enable-ingress
+
+lint-requirements: ## install kubernetes linter
+	@echo "Installing kubelinter"
+    # probably not required....
+
+lint: lint-requirements ## run lint checker against the yaml files
+	@echo "Running Linter"
+	kube-linter lint $(K_ROOT)
+
+yaml: $(YAML_FILES) ## generate yaml files from template (subst env variables)
+
+%.yaml: %.ytemplate
+	@echo "Creating yaml files"
+	@echo "Creating file $@ from $<"
+	export K_NAMESPACE=$(K_NAMESPACE) && envsubst < $< > $@
