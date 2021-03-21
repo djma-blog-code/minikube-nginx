@@ -83,4 +83,12 @@ The Makefile is self documenting so just run `make` and it will provide the list
 
 To clean the environment after review `make clean` will remove the minikube resources and any temporary files from the local machine
 
+## References
+
+Collection of links to useful docs
+
+- [Tutorial: Deploy Your First Kubernetes Cluster](https://www.appvia.io/blog/tutorial-deploy-kubernetes-cluster "Tutorial: Deploy Your First Kubernetes Cluster")
+- [Troubleshooting Kubernetes Deployments](https://learnk8s.io/troubleshooting-deployments "Troubleshooting Kubernetes Deployments")
+- [Analyze Kubernetes files for errors with KubeLinter](https://opensource.com/article/21/1/kubelinter "Analyze Kubernetes files for errors with KubeLinter")
+
 ## TODO
