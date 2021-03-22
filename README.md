@@ -47,7 +47,8 @@ Software versions tested with
 
 ## Files of note
 
-- `/ops/kubernetes/**/*.yaml` Definition files for the kubernetes resources. ConfigMaps, Deployments, Service and Ingress
+- `/ops/kubernetes/**/*.ytemplate` Definition files for the kubernetes resources. ConfigMaps, Deployments, Service and Ingress. Defined as a `ytemplate` file so during ci/cd I can replace environment variables in the yaml files for the stages.
+
 - `Makefile` The brains of the operation, all the automation macros to build, test and deploy the solution.
 
 ## Order of Execution
