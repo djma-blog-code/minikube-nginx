@@ -80,7 +80,7 @@ Collection of links to useful docs
 
 ## TODO
 
-- from linting changes `readOnlyRootFilesystem` and `runAsUser` cause and issue in the container startup as nginx needs read-write to the root filesystem (see:[Issue #416 docker-nginx](https://github.com/nginxinc/docker-nginx/issues/416 "Issue #416 docker-nginx") ). Will come back to this no doubt as it is a security issue and will need fixing.
+- from linting changes `readOnlyRootFilesystem` and `runAsUser` cause an issue in the container startup as nginx needs read-write to the root filesystem (see:[Issue #416 docker-nginx](https://github.com/nginxinc/docker-nginx/issues/416 "Issue #416 docker-nginx") ). Will come back to this no doubt as it is a security issue and will need fixing.
 
   ```
   /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh

@@ -36,7 +36,7 @@ apply: $(YAML_TARGETS) ## Build resources from the yaml files
 
 yaml: $(YAML_FILES) ## generate yaml files from template (subst env variables)
 
-lint: lint-requirements ## run lint checker against the yaml files
+lint:  ## run lint checker against the yaml files
 	@echo "Running Linter"
 	kube-linter lint $(K_ROOT) || true # just so make doesn't blob when there is nothing we can do *shrug*
 	# as in case of the "no pods found matching service labels (map[app:helloworld])" which is only true because
