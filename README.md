@@ -14,7 +14,7 @@ This project contains all the resources and code required to:
 
 Once deployed, the following command will test the service has deployed correctly `make test` (although it has an annoying 30s currently).
 
-Additionally if you have access, you can issue the command `sudo echo $(IP) helloworld >> /etc/hosts`, you can browse to the pages in your browser of choice. `<browser of choice> http://helloworld/`
+Additionally if you have access, you can add `minikube ip` to `/etc/hosts` with hostname `helloworld` so you can browse to the pages in your browser of choice. `<browser of choice> http://helloworld/`.
 
 ## Dependencies
 
