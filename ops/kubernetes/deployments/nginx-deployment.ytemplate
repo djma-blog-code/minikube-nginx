@@ -6,13 +6,6 @@ metadata:
   name: helloworld
   namespace: ${K_NAMESPACE}
 spec:
-  securityContext:
-    runAsUser: 1000
-    runAsGroup: 3000
-    fsGroup: 2000
-    allowPrivilegeEscalation: false
-    readOnlyRootFilesystem: true
-
   replicas: 1
   selector:
     matchLabels:
@@ -39,12 +32,11 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 3000
-            fsGroup: 2000
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
+          # securityContext:
+          #   runAsUser: 1001
+          #   runAsGroup: 3000
+          #   allowPrivilegeEscalation: false
+          #   readOnlyRootFilesystem: true
 
       volumes:
         - name: htmlcontent
