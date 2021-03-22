@@ -1,5 +1,7 @@
 # Hello World minikube Nginx
 
+For progress see[Changelog](./Changelog.rst "Changelog")
+
 Work in progress to deploy out configurable nginx as a reverse proxy with either LDAP SSO or client certs to redeploy my private servers to cloud
 
 I used the article [Tutorial: Deploy Your First Kubernetes Cluster](https://www.appvia.io/blog/tutorial-deploy-kubernetes-cluster "Tutorial: Deploy Your First Kubernetes Cluster") as a guide to start from. The index.html and index2.html are shamelessly reused from this article, at least for tag stage_1.x.x
