@@ -10,6 +10,8 @@ TOUCH_FILES=enable-ingress
 TEMP_FOLDERS=
 
 K_ROOT := ops/kubernetes
+K_NAMESPACE := nginx-test
+
 YAML_FILES_SRC = $(shell find $(K_ROOT) -type f -name '*.ytemplate')
 YAML_FILES = $(YAML_FILES_SRC:%.ytemplate=%.yaml)
 YAML_TARGETS = $(YAML_FILES_SRC:%.ytemplate=%)
@@ -22,6 +24,9 @@ help:
 changelog: 
 	# requires changelog installed in the python environment
 	gitchangelog > Changelog.rst
+
+set-namespace: ## Set the namespace in the makefile as the current default
+	@[ "${K_NAMESPACE}" ] && kubectl config set-context --current --namespace=$(K_NAMESPACE)
 
 enable-ingress: ## enable ingress addon in minikube
 	minikube addons enable ingress
@@ -71,7 +76,7 @@ $(APPS): ## restart the apps
 
 clean:  ## clean everything up
 	-rm $(TOUCH_FILES) || true
-	@[ "${var}" ] && rm -Rf $(TEMP_FOLDERS) || true
+	@[ "${TEMP_FOLDERS}" ] && rm -Rf $(TEMP_FOLDERS) || true
 
 	## iterate through the yaml files and delete the resources before we
 	## clean the actual yaml files away forever
@@ -84,3 +89,4 @@ clean:  ## clean everything up
 	)
 
 	-rm $(YAML_FILES)
+
