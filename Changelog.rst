@@ -2,8 +2,26 @@ Changelog
 =========
 
 
-(unreleased)
-------------
+1.2.0 (2021-03-22)
+------------------
+
+Features
+~~~~~~~~
+- Changelog : Add changelog and make recipe. [Mike Arnold]
+
+
+Documentation
+~~~~~~~~~~~~~
+- READEME : Add the pesky space (formatting) [Mike Arnold]
+
+- README : fix the 'autolint' fixes ... *sigh* [Mike Arnold]
+
+- README : Minor typo... [Mike Arnold]
+
+- README : Add link to changelog (can't include :() [Mike Arnold]
+
+- README : add link to gitchangelog. [Mike Arnold]
+
 
 Fixes
 ~~~~~
@@ -36,10 +54,6 @@ Documentation
 
 - README : Minor typo. [Mike Arnold]
 
-- README : Some minor tweaks. [Mike Arnold]
-
-- README : Update readme with useful info. [Mike Arnold]
-
 
 Other
 ~~~~~
@@ -52,6 +66,22 @@ Other
 
   Introduce templates and a `make yaml` command to allow for dynamic
   inclusion of environment variables in the yaml files (e.g. namesapce which may change through ci/cd pipeline)
+
+1.0.2 (2021-03-21)
+------------------
+
+Documentation
+~~~~~~~~~~~~~
+- README : Some minor tweaks. [Mike Arnold]
+
+
+1.0.1 (2021-03-21)
+------------------
+
+Documentation
+~~~~~~~~~~~~~
+- README : Update readme with useful info. [Mike Arnold]
+
 
 1.0.0 (2021-03-21)
 ------------------
