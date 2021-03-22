@@ -1,6 +1,9 @@
-# Hello World minikube Nginx
+# minikube Nginx Ingress using multiple backend hosts
 
-For progress see [Changelog](./Changelog.rst "Changelog")
+For progress see [Changelog](./Changelog.rst "Changelog"). Tags of note:
+
+- [stage_1.0.0](https://github.com/djma-blog-code/minikube-nginx/releases/tag/1.0.0 "Stage 1.0 - initial automation code") - Base version with deployable Kubernetes resources automated using Makefile
+- [stage_1.2.0](https://github.com/djma-blog-code/minikube-nginx/releases/tag/1.2.0 "Stage 1.2 - refactoring automation") - Updated version to include Changelog, refactored Makefile, yaml templating
 
 Work in progress to deploy out configurable nginx as a reverse proxy with either LDAP SSO or client certs to redeploy my private servers to cloud
 
@@ -17,6 +20,10 @@ This project contains all the resources and code required to:
 Once deployed, the following command will test the service has deployed correctly `make test` (although it has an annoying 30s currently).
 
 Additionally if you have access, you can add `minikube ip` to `/etc/hosts` with hostname `helloworld` so you can browse to the pages in your browser of choice. `<browser of choice> http://helloworld/`.
+
+This repo is an aid to help distinguish between DevOps and Kubernetes. Kubernetes is a platform that is designed to be compatible with automation and Infrastructure as Code (IaC). Kubernetes is NOT DevOps. DevOps is a layer on top of this that allows for the codification of the rules for developing, deploying and supporting the Kubernetes deployment. As this repo progresses you will see the transition from a Kubernetes deployment of Nginx to a CI/CD pipeline designed to reliably deploy the Kubernetes and supporting systems to a cloud platform (probably AWS). The repo is an iterative development.
+
+The `Makefile` in this repo demonstrates some of the key concepts around DevOps. It provodes not only the recipes for build/deploy/release but it is self documenting. By incorporating `Makefiles` into repositories in a consistent way developers, release managers and operations can understand how to code, build, test and deploy the solution without hunting out a subject matter expert. It creates reliability.
 
 ## Dependencies
 
@@ -62,9 +69,9 @@ Software versions tested with
 The Makefile is self documenting so just run `make` and it will provide the list of available recipes
 
 - `make enable-ingress` enable ingress addon in minikube
+- `make yaml` generate yaml files from template (subst env variables)
 - `make apply-all` Enable Ingress, apply all resources to kubernetes, lint check and test
 - `make apply` Build resources from the yaml files
-- `make yaml` generate yaml files from template (subst env variables)
 - `make lint` run lint checker against the yaml files
 - `make redeploy` Redeploy the config and recycle the app
 - `make clean` clean everything up
@@ -83,6 +90,8 @@ Collection of links to useful docs
 - [Analyze Kubernetes files for errors with KubeLinter](https://opensource.com/article/21/1/kubelinter "Analyze Kubernetes files for errors with KubeLinter")
 
 - [Python gitchangelog package (useful)](https://github.com/vaab/gitchangelog "Git Changelog python package")
+- [Kubernetes Ingree (Nginx)](https://github.com/nginxinc/kubernetes-ingress "Kubernetes Ingress repo")
+- [Nginx Ingress routing example](https://github.com/nginxinc/kubernetes-ingress/tree/master/examples/complete-example "Nginx routing example for kubernetes ingress ")
 
 ## TODO
 
