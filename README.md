@@ -1,6 +1,6 @@
 # Hello World minikube Nginx
 
-For progress see[Changelog](./Changelog.rst "Changelog")
+For progress see [Changelog](./Changelog.rst "Changelog")
 
 Work in progress to deploy out configurable nginx as a reverse proxy with either LDAP SSO or client certs to redeploy my private servers to cloud
 
