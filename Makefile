@@ -26,6 +26,10 @@ APPS = helloworld
 help:
 	@grep -E '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36mmake %-30s\033[0m %s\n", $$1, $$2}'
 
+changelog: 
+	# requires changelog installed in the python environment
+	gitchangelog > Changelog.rst
+
 enable-ingress: ## enable ingress addon in minikube
 	minikube addons enable ingress
 	touch $@
