@@ -68,6 +68,7 @@ The Makefile is self documenting so just run `make` and it will provide the list
 - `make lint` run lint checker against the yaml files
 - `make redeploy` Redeploy the config and recycle the app
 - `make clean` clean everything up
+- `make set-namespace` Set the namespace in the makefile as the current default
 
 ## Cleaning up
 
