@@ -2,6 +2,42 @@ Changelog
 =========
 
 
+(unreleased)
+------------
+- Merge(feature): Added multihost, merging branch. [Mike Arnold]
+
+
+1.3.0 (2021-03-22)
+------------------
+
+Features
+~~~~~~~~
+- Multihost : Add multi host routing + tls. [Mike Arnold]
+
+
+Documentation
+~~~~~~~~~~~~~
+- README : Link stages to tags in github. [Mike Arnold]
+
+- README : Add in purpose statement. [Mike Arnold]
+
+- README : Add in new make recipe. [Mike Arnold]
+
+- README : Updated to reference the ytemplate. [Mike Arnold]
+
+- Changelog : Update changelog. [Mike Arnold]
+
+
+Fixes
+~~~~~
+- Makefile : Fix incorrect clean, add set namespace. [Mike Arnold]
+
+
+Other
+~~~~~
+- Tidy(Makefile): Remove old Variables, not required. [Mike Arnold]
+
+
 1.2.0 (2021-03-22)
 ------------------
 
