@@ -16,7 +16,10 @@ YAML_FILES_SRC = $(shell find $(K_ROOT) -type f -name '*.ytemplate')
 YAML_FILES = $(YAML_FILES_SRC:%.ytemplate=%.yaml)
 YAML_TARGETS = $(YAML_FILES_SRC:%.ytemplate=%)
 
-APPS = helloworld
+APPS = tea coffee
+HOSTNAME = helloworld
+CURL_ADDITIONAL_FLAGS=-s -I --insecure
+
 
 help:
 	@grep -E '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36mmake %-30s\033[0m %s\n", $$1, $$2}'
@@ -54,7 +57,10 @@ test:
 		array=($$(echo "$$APPS" | tr ' ' '\n')); \
 		for item in "$${array[@]}"; do \
 			echo "checking App '$$item'"; \
-			curl -s -I -H "Host: $$item" http://$$M_IP/ | grep "200 OK" && echo -e "\033[0;32m**** K8s deploy Success ****\033[0m" || echo -e "\033[0;31m**** K8s Service deploy Failed ****\033[0m"; \
+			echo "curl $$CURL_ADDITIONAL_FLAGS -H \"Host: $$HOSTNAME\" https://$$M_IP/$$item "; \
+			curl $$CURL_ADDITIONAL_FLAGS -H "Host: $$HOSTNAME" https://$$M_IP/$$item | grep "200" && \
+				echo -e "\033[0;32m**** K8s deploy Success ****\033[0m" \
+				|| echo -e "\033[0;31m**** K8s $$item Service deploy Failed ****\033[0m"; \
 		done \
 	)
 

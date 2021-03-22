@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: helloworld
-  name: helloworld
+    app: coffee
+  name: coffee
   namespace: ${K_NAMESPACE}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: helloworld
+      app: coffee
   template:
     metadata:
       labels:
-        app: helloworld
+        app: coffee
     spec:
       containers:
         - image: nginx:latest

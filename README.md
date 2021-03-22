@@ -3,7 +3,7 @@
 For progress see [Changelog](./Changelog.rst "Changelog"). Tags of note:
 
 - [stage_1.0.0](https://github.com/djma-blog-code/minikube-nginx/releases/tag/1.0.0 "Stage 1.0 - initial automation code") - Base version with deployable Kubernetes resources automated using Makefile
-- [stage_1.2.0](https://github.com/djma-blog-code/minikube-nginx/releases/tag/1.2.0 "Stage 1.2 - refactoring automation")\_ - Updated version to include Changelog, refactored Makefile, yaml templating
+- [stage_1.2.0](https://github.com/djma-blog-code/minikube-nginx/releases/tag/1.2.0 "Stage 1.2 - refactoring automation") - Updated version to include Changelog, refactored Makefile, yaml templating
 
 Work in progress to deploy out configurable nginx as a reverse proxy with either LDAP SSO or client certs to redeploy my private servers to cloud
 

@@ -3,16 +3,28 @@ kind: Ingress
 metadata:
   name: helloworld-ingress
   namespace: ${K_NAMESPACE}
-
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  tls:
+    - hosts:
+        - helloworld
+      secretName: helloworld-secret
   rules:
     - host: helloworld
       http:
         paths:
-          - path: /
+          - path: /tea(/|$)(.*)
             pathType: Prefix
             backend:
               service:
-                name: helloworld-service
+                name: tea-service
+                port:
+                  number: 8080
+          - path: /coffee(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: coffee-service
                 port:
                   number: 8080
