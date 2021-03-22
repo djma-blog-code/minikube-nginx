@@ -12,17 +12,9 @@ This project contains all the resources and code required to:
 4. Deploy the Service wrapper
 5. Deploy the Ingress rules to access the Nginx web pages
 
-Once deployed, the following command will test the service has deployed correctly.
+Once deployed, the following command will test the service has deployed correctly `make test` (although it has an annoying 30s currently).
 
-`export IP=$(minikube ip)`
-
-`curl -v -s -I -H 'Host: helloworld' "http://$IP/`
-
-and this should give the 2nd page in the mapped volume
-
-`curl -v -s -I -H 'Host: helloworld' "http://$IP/index2.html`
-
-Additionally if you have access, you can issue the command `sudo echo $(IP) helloworld >> /etc/hosts`, you can browse to the pages in your browser of choice.
+Additionally if you have access, you can add `minikube ip` to `/etc/hosts` with hostname `helloworld` so you can browse to the pages in your browser of choice. `<browser of choice> http://helloworld/`.
 
 ## Dependencies
 
@@ -58,7 +50,7 @@ Software versions tested with
 
 ## Order of Execution
 
-1. `make apply-all` - Applies all the resources in a sensible order
+1. `make apply-all` - Applies all the resources in a sensible order, lints and tests
 2. `make redeploy` - Redeploys the resources and restarts the pods associated with `$(APPS)`
 3. `make clean` - cleans up temporary files and deletes all the resources
 
@@ -66,23 +58,41 @@ Software versions tested with
 
 The Makefile is self documenting so just run `make` and it will provide the list of available recipes
 
-- `make apply-all` Apply all resources to kubernetes
-- `make apply-configmaps` apply the configmaps to kubernetes
-- `make apply-deployments` apply the deployments to kubernetes
-- `make apply-ingress` apply the ingress to kubernetes
-- `make apply-services` apply the services to kubernetes
-- `make clean` clean everything up
-- `make clean-configmaps` clean configmaps resources
-- `make clean-deployments` clean deployment resources
-- `make clean-ingress` clean ingress resources
-- `make clean-services` clean services resources
 - `make enable-ingress` enable ingress addon in minikube
+- `make apply-all` Enable Ingress, apply all resources to kubernetes, lint check and test
+- `make apply` Build resources from the yaml files
+- `make yaml` generate yaml files from template (subst env variables)
+- `make lint` run lint checker against the yaml files
 - `make redeploy` Redeploy the config and recycle the app
+- `make clean` clean everything up
 
 ## Cleaning up
 
 To clean the environment after review `make clean` will remove the minikube resources and any temporary files from the local machine
 
+## References
+
+Collection of links to useful docs
+
+- [Tutorial: Deploy Your First Kubernetes Cluster](https://www.appvia.io/blog/tutorial-deploy-kubernetes-cluster "Tutorial: Deploy Your First Kubernetes Cluster")
+- [Troubleshooting Kubernetes Deployments](https://learnk8s.io/troubleshooting-deployments "Troubleshooting Kubernetes Deployments")
+- [Analyze Kubernetes files for errors with KubeLinter](https://opensource.com/article/21/1/kubelinter "Analyze Kubernetes files for errors with KubeLinter")
+
 ## TODO
 
-- Need to remove repetition in Makfile as new services come along this will get tedious to maintain. Too much repetition
+- from linting changes `readOnlyRootFilesystem` and `runAsUser` cause and issue in the container startup as nginx needs read-write to the root filesystem (see:[Issue #416 docker-nginx](https://github.com/nginxinc/docker-nginx/issues/416 "Issue #416 docker-nginx") ). Will come back to this no doubt as it is a security issue and will need fixing.
+
+  ```
+  /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+  10-listen-on-ipv6-by-default.sh: info: can not modify /etc/nginx/conf.d/default.conf (read-only file system?)
+  /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+  /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+  /docker-entrypoint.sh: Configuration complete; ready for start up
+  2021/03/22 00:01:38 [warn] 1#1: the "user" directive makes sense only if the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:2
+  nginx: [warn] the "user" directive makes sense only if the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:2
+  2021/03/22 00:01:38 [emerg] 1#1: mkdir() "/var/cache/nginx/client_temp" failed (30: Read-only file system)
+  nginx: [emerg] mkdir() "/var/cache/nginx/client_temp" failed (30: Read-only file system
+
+  ```
+
+- Add in a better check for the services being available than a `sleep 30s`, I know a man who would be frustrated by the wait :)
