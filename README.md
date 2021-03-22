@@ -78,7 +78,9 @@ Collection of links to useful docs
 
 - [Tutorial: Deploy Your First Kubernetes Cluster](https://www.appvia.io/blog/tutorial-deploy-kubernetes-cluster "Tutorial: Deploy Your First Kubernetes Cluster")
 - [Troubleshooting Kubernetes Deployments](https://learnk8s.io/troubleshooting-deployments "Troubleshooting Kubernetes Deployments")
-- [Analyze Kubernetes files for errors with KubeLinter](https://opensource.com/article/21/1/kubelinter "Analyze Kubernetes files for errors with KubeLinter") -[Python gitchangelog package (useful)](https://github.com/vaab/gitchangelog "Git Changelog python package")
+- [Analyze Kubernetes files for errors with KubeLinter](https://opensource.com/article/21/1/kubelinter "Analyze Kubernetes files for errors with KubeLinter")
+
+-[Python gitchangelog package (useful)](https://github.com/vaab/gitchangelog "Git Changelog python package")
 
 ## TODO
 
