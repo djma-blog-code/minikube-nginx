@@ -14,13 +14,6 @@ YAML_FILES_SRC = $(shell find $(K_ROOT) -type f -name '*.ytemplate')
 YAML_FILES = $(YAML_FILES_SRC:%.ytemplate=%.yaml)
 YAML_TARGETS = $(YAML_FILES_SRC:%.ytemplate=%)
 
-# We do these separately so we can order them.
-K_CONFIGS := $(wildcard $(K_ROOT)/configmaps/*.yaml $(K_ROOT)/deployments/*.yaml $(K_ROOT)/services/*.yaml $(K_ROOT)/ingress/*.yaml)
-K_DEPLOYMENTS := $(wildcard $(K_ROOT)/deployments/*.yaml)
-K_SERVICES := $(wildcard $(K_ROOT)/services/*.yaml)
-K_INGRESS := $(wildcard $(K_ROOT)/ingress/*.yaml)
-K_NAMESPACE := nginx-test
-
 APPS = helloworld
 
 help:
